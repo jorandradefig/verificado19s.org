@@ -1,0 +1,34 @@
+version: '3'
+services:
+  database:
+    image: mongo:latest
+    restart: always
+    volumes:
+      - ./database:/data/db
+    working_dir: /data/db
+    env_file: 
+      - ./common.env
+    ports:
+      - 27017:27017
+  backend:
+    build: ./backend
+    restart: always
+    volumes:
+      - ./backend:/usr/src/app
+    env_file: 
+      - ./common.env
+    command: /bin/bash -c "yarn install && npm start"
+    ports:
+        - 3000:3000
+    depends_on:
+      - database
+  frontend:
+    build: ./frontend
+    restart: always
+    volumes:
+      - ./frontend:/usr/src/app
+    command: /bin/bash -c "yarn install && ng serve"
+    ports:
+        - 4200:4200
+    depends_on:
+      - backend
