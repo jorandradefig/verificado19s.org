@@ -27,7 +27,7 @@ services:
     restart: always
     volumes:
       - ./frontend:/usr/src/app
-    command: /bin/bash -c "yarn install && ng serve"
+    command: /bin/bash -c "yarn install && npm start"
     ports:
         - 4200:4200
     depends_on:
