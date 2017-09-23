@@ -1,1 +1,2 @@
-require('./bin/server');
+require('ts-node/register');
+require('./src/server');
